@@ -66,3 +66,28 @@ The array of colors is at the bottom of the files, you can add more there if you
 To make such `CSS` classes, make sure to fill them in with whatever you want when you make the subreddit's User and Post Flairs. Post Flairs are used in posts, User Flairs are used in comments.
 
 If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the code too.
+
+## Support
+
+In regards to what type of posts are supported:
+
+* Text
+* Single Image + Gallery
+* URL (and URL with video)
+* Poll
+
+If the post has the spoiler tag, it won't show the post's body.
+If the post has the NFSW tag, it currently just adds a line claiming it is NFSW.
+In both cases, images are obfuscated, but a link to the all images is given as a shortcut.
+
+Text merely shows the text, however, although I didn't test, in-text spoilers shouldn't work, as both Reddit and Discord's spoilers are different, and I have made no treatment about that due to "Embed" limitations. **TLDR: It doesn't work**;
+
+Polls will work similar as text, but besides the link to View the Poll (Reddit auto adds it), it also shows the options available;
+
+Single Image shows the image;
+
+Gallery shows the first image, and adds a list of links, with Caption and Links, if available, for everything;
+
+URL just shows the URL with a Thumbnail. (It's important to never hide any user-written URL for safety reasons)
+
+If Reddit detects it's a video, like from Youtube, the post will be made in a more ordinary way, this is because as long as there is an embed, Discord won't "auto-load" the video, thus, for this case only, the post format is completely different and simplified.
