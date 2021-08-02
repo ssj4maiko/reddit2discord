@@ -37,11 +37,22 @@ Give it a name, select the channel, save it, copy the URL and paste it here. The
 And it should be all. You can test it with `npm run dev` or `npm run start`, or just `sh start.sh`
 
 Since you likely want to run it on the background, without an always on terminal.
-```
-nohup ./start.sh >> app.log 2>&1 &
-```
-Check if it's running with `ps -ef | grep "start.sh" | grep -v grep`. If it has been terminated or exitted, then something wrong is not right.
+```nohup npm run start >> app.log 2>&1 &```
+Check if it's running with `ps -ef | grep "npm" | grep -v grep`. If it has been terminated or exitted, then something wrong is not right.
 
 If you want to kill the process to start it again, get the pid with the above command (It's the same number that appeared when you used `nohup`), and do a `kill <PID#>`. You can use the above command to ensure it has been terminated.
 
 A new `app.log` will be created with everything that would usually be onscreen, so you can check there in case something happens.
+
+## Customizing
+
+Colors and messages are all in code, so if you want to change something, right now, you will have to change the code. If you don't mind the way messages are made, just changing the colors is easy.
+
+In `discord.js`, there is an array of "CSS" flairs, so you can use those to select your colors.
+
+The array of colors is at the bottom of the files, you can add more there if you know the values.
+
+To make such `CSS` classes, make sure to fill them in with whatever you want when you make the subreddit's User and Post Flairs. Post Flairs are used in posts, User Flairs are used in comments.
+
+If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the code too.
+

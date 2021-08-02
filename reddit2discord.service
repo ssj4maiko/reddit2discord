@@ -1,0 +1,14 @@
+[Unit]
+Description=Reddit2Discord
+
+[Service]
+ExecStart=~/reddit2discord/index.js
+Restart=always
+User=nobody
+# Note Debian/Ubuntu uses 'nogroup', RHEL/Fedora uses 'nobody'
+Group=nogroup
+Environment=PATH=/usr/bin:/usr/local/bin
+WorkingDirectory=~/reddit2discord/
+
+[Install]
+WantedBy=multi-user.target

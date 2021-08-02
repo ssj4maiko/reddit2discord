@@ -1,4 +1,13 @@
+#!/usr/bin/env node
 require('dotenv').config();
+
+console.log('Subreddit', process.env.SUBREDDIT);
+if(!process.env.SUBREDDIT){
+    throw new Error('You must fill in the SUBREDDIT .env file');
+}
+if(!process.env.WEBHOOK_POST && !process.env.WEBHOOK_COMMENT){
+    throw new Error('You must fill in at least one Webhook in the .env file');
+}
 
 var Snooper = require('reddit-snooper')
     snooper = new Snooper(
