@@ -1,0 +1,24 @@
+{
+  "name": "reddit2discord",
+  "version": "1.0.0",
+  "description": "A minibot to post new posts from a subreddit to discord, ran from a raspberry pi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "reddit",
+    "discord",
+    "bot"
+  ],
+  "author": "MBA",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "html-entities": "^2.3.2",
+    "nodemon": "^2.0.12",
+    "reddit-snooper": "^1.0.1"
+  }
+}
