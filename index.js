@@ -16,38 +16,27 @@ discord = new Discord(process.env.WEBHOOK_POST, process.env.WEBHOOK_COMMENT);
 /**
  * https://reddit.com/r/<<process.env.SUBREDDIT>>/comments.json
  */
-snooper.watcher.getCommentWatcher(process.env.SUBREDDIT)
-    .on('comment', function(comment) {
-        // comment is a object containing all comment data
-        //console.log(comment);
-		discord.trigger(discord.COMMENT, comment.data);
-    })
-    .on('error', console.error);
+if(process.env.WATCH_COMMENT){
+    snooper.watcher.getCommentWatcher(process.env.SUBREDDIT)
+        .on('comment', function(comment) {
+            // comment is a object containing all comment data
+            //console.log(comment);
+            console.log("new comment");
+            discord.trigger(discord.COMMENT, comment.data);
+        })
+        .on('error', console.error);
+}
 
 /**
  * https://reddit.com/r/<<process.env.SUBREDDIT>>/new.json
  */
-snooper.watcher.getPostWatcher(process.env.SUBREDDIT)
-    .on('post', function(post) {
-        // post is a object containing all post data
-        //console.log(post)
-		discord.trigger(discord.POST, post.data);
-    })
-    .on('error', console.error);
-
-/*
-	{
-		"embeds": [{
-			"title" : data.link_title,
-			"url" : data.link_url,
-			"description" : data.body,
-			"thumbnail": { 
-			"url": "{{ImageURL}}"
-			},
-			"footer": { 
-			"icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/favicon-32x32.png", 
-			"text": "/u/"+data.author 
-			} 
-		}]
-	}
-*/
+if(process.env.WATCH_POST){
+    snooper.watcher.getPostWatcher(process.env.SUBREDDIT)
+        .on('post', function(post) {
+            // post is a object containing all post data
+            //console.log(post)
+            console.log("new post");
+            discord.trigger(discord.POST, post.data);
+        })
+        .on('error', console.error);
+}
