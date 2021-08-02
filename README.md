@@ -34,7 +34,7 @@ Give it a name, select the channel, save it, copy the URL and paste it here. The
 
 ## Running
 
-And it should be all. You can test it with `npm run dev` or `npm run start`, or just `sh start.sh`
+And it should be all. You can test it with `npm run dev` or `npm run start`.
 
 Since you likely want to run it on the background, without an "always on terminal", I have added a `service.example` file.
 
