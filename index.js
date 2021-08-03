@@ -8,9 +8,6 @@ if(!process.env.SUBREDDIT){
 if(!process.env.WEBHOOK_POST && !process.env.WEBHOOK_COMMENT){
 	throw new Error('You must fill in at least one Webhook in the .env file');
 }
-process.env.WATCH_POST = process.env.WATCH_POST == 'true' || process.env.WATCH_POST == '1';
-process.env.WATCH_COMMENT = process.env.WATCH_COMMENT == 'true' || process.env.WATCH_COMMENT == '1';
-process.env.SHOW_COMMENTS = process.env.SHOW_COMMENTS == 'true' || process.env.SHOW_COMMENTS == '1';
 
 var Snooper = require('reddit-snooper')
 	snooper = new Snooper(
