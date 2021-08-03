@@ -199,14 +199,13 @@ module.exports = class Discord {
 			this.send(postData, this.webhook.comment);
 		},
 		prepare : (data) => {
-			return {
+			let base = {
 				"content": "A new comment was made.",
 				"embeds": [{
 					"title" : (data.link_flair_text ? '['+htmlEntities.decode(data.link_flair_text)+'] ' : '')
 								+htmlEntities.decode(data.link_title)
 								+' by */u/'+data.link_author+'*',
 					"url" : htmlEntities.decode(data.link_permalink),
-					"description" : htmlEntities.decode(data.body),
 					"color"	: this.postFlairs[data.author_flair_css_class] || COLORS.ORANGE,
 					"author": {
 						"name": htmlEntities.decode(data.author_flair_text ? '['+data.author_flair_text+'] ' : '')+"/u/"+data.author,
@@ -214,6 +213,10 @@ module.exports = class Discord {
 					},
 				}]
 			};
+			if(process.env.SHOW_COMMENTS == 'true'){
+				base.embeds[0].description = htmlEntities.decode(data.body);
+			}
+			return base;
 		}
 	}
 	// Methods for posts on Reddit
@@ -231,6 +234,7 @@ module.exports = class Discord {
 		});
 	}
 }
+console.log(process.env.SHOW_COMMENTS);
 const COLORS = {
 	'DEFAULT'				:	0,			// 	#000000
 	'AQUA'					:	1752220,	// 	#1ABC9C
