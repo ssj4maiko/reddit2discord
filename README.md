@@ -59,13 +59,13 @@ If however it mentions a problem with the unit file, then you likely wrote somet
 
 Colors and messages are all in code, so if you want to change something, right now, you will have to change the code. If you don't mind the way messages are made, just changing the colors is easy.
 
-In `discord.js`, there is an array of "CSS" flairs, so you can use those to select your colors.
+In `flair-colors.js`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's done, and don't forget the commas <,>.
 
-The array of colors is at the bottom of the files, you can add more there if you know the values.
+The array of colors is done with integer numbers instead of the usual Hexcode, or RGB values. I see no common sense in how that works right now, so to find new colors, well, good luck.
 
-To make such `CSS` classes, make sure to fill them in with whatever you want when you make the subreddit's User and Post Flairs. Post Flairs are used in posts, User Flairs are used in comments.
+To make the `CSS` classes, when you are making new classes on the subreddit (You need to at least be a **mod**), fill the *CSS Class* input for both User and Post Flairs. Post Flairs are used in posts, User Flairs are used in comments.
 
-If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the code too.
+If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the `discord.js` code too, just search for WHITE and ORANGE, and change for something else in the array of colors, or some random number.
 
 ## Support
 
@@ -91,3 +91,5 @@ Gallery shows the first image, and adds a list of links, with Caption and Links,
 URL just shows the URL with a Thumbnail. (It's important to never hide any user-written URL for safety reasons)
 
 If Reddit detects it's a video, like from Youtube, the post will be made in a more ordinary way, this is because as long as there is an embed, Discord won't "auto-load" the video, thus, for this case only, the post format is completely different and simplified.
+
+Comments, by default, won't show the text in the post due to potential spoilers (There is no information if the new thread is or not spoiler/NFSW). So you can activate it if you think it's ok for you.
