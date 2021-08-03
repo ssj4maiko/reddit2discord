@@ -202,13 +202,12 @@ module.exports = class Discord {
 			let base = {
 				"content": "A new comment was made.",
 				"embeds": [{
-					"title" : (data.link_flair_text ? '['+htmlEntities.decode(data.link_flair_text)+'] ' : '')
-								+htmlEntities.decode(data.link_title)
-								+' by */u/'+data.link_author+'*',
-					"url" : htmlEntities.decode(data.link_permalink),
+					"title" : '- '+(data.link_flair_text ? '['+htmlEntities.decode(data.link_flair_text)+'] ' : '')
+								+htmlEntities.decode(data.link_title),
+					"url" : htmlEntities.decode(data.link_permalink+data.id),
 					"color"	: this.postFlairs[data.author_flair_css_class] || COLORS.ORANGE,
 					"author": {
-						"name": htmlEntities.decode(data.author_flair_text ? '['+data.author_flair_text+'] ' : '')+"/u/"+data.author,
+						"name": "/u/"+data.author+' '+htmlEntities.decode(data.author_flair_text ? '['+data.author_flair_text+'] ' : ''),
 						//"icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
 					},
 				}]
@@ -234,7 +233,6 @@ module.exports = class Discord {
 		});
 	}
 }
-console.log(process.env.SHOW_COMMENTS);
 const COLORS = {
 	'DEFAULT'				:	0,			// 	#000000
 	'AQUA'					:	1752220,	// 	#1ABC9C
