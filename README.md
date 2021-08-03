@@ -1,6 +1,8 @@
 # Reddit2Discord
 
-A simple NodeJS automation to check on an specific subreddit, and notify a discord Webhook through a post. Since it needs to constantly be running, it was made with the intent of running it on a Raspberry Pi 3 I have always on.
+A simple NodeJS watcher to check on an specific subreddit, and notify a discord Webhook through a post. Since it needs to constantly be running, it was made with the intent of running it on a Raspberry Pi 3 I have always on.
+
+Possibly because of *Reddit-Snooper* ( https://github.com/JuicyPasta/reddit-snooper ), it seems that Reddit still counts each access as a unique visitant to a subreddit (Even if same IP), so the subreddit that one I made all this for went from less than 100 visitants to ~2K, ironically, more than the number of subscribers. ¯\\\_(ツ)\_/¯
 
 ## Install
 
