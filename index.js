@@ -16,7 +16,7 @@ var Snooper = require('reddit-snooper')
             //user_agent: 'Raspberry Pi',
 
             automatic_retries: true, // automatically handles condition when reddit says 'you are doing this too much'
-            api_requests_per_minute: 10 // api requests will be spread out in order to play nicely with Reddit
+            api_requests_per_minute: 1 // api requests will be spread out in order to play nicely with Reddit
         });
 
 Discord = require('./discord.js');
