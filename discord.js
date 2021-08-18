@@ -215,7 +215,7 @@ module.exports = class Discord {
 			}
 		}
 		request(clientServerOptions, function (error, response) {
-			return;
+			console.log('Webhook response ', response);
 		});
 	}
 }
