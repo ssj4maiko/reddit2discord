@@ -215,7 +215,13 @@ module.exports = class Discord {
 			}
 		}
 		request(clientServerOptions, function (error, response) {
-			console.log('Webhook response ', response);
+			console.log('Webhook response: statusCode', response.statusCode, 'body', response.body);
+			if(response.statusCode == 400){
+				setTimeout(() => {
+					console.log('retrying');
+					this.send(postData, url);
+				}, 60000);
+			}
 		});
 	}
 }
