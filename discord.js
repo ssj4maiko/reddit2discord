@@ -214,12 +214,14 @@ module.exports = class Discord {
 				'Content-Type': 'application/json'
 			}
 		}
+		let self = this;
 		request(clientServerOptions, function (error, response) {
 			console.log('Webhook response: statusCode', response.statusCode, 'body', response.body);
 			if(response.statusCode == 400){
+				console.log('retrying in 60 sec');
 				setTimeout(() => {
 					console.log('retrying');
-					this.send(postData, url);
+					self.send(postData, url);
 				}, 60000);
 			}
 		});
