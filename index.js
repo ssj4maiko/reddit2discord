@@ -33,7 +33,10 @@ if(process.env.WATCH_COMMENT == 'true'){
 			console.log("new comment");
 			discord.trigger(discord.COMMENT, comment.data);
 		})
-		.on('error', console.error);
+		.on('error', function(er) {
+			console.error(er);
+			process.exit()
+		});
 }
 
 /**
@@ -47,5 +50,8 @@ if (process.env.WATCH_POST == "true") {
 			console.log("new post");
 			discord.trigger(discord.POST, post.data);
 		})
-		.on("error", console.error);
+		.on('error', function (er) {
+			console.error(er);
+			process.exit()
+		});
 }

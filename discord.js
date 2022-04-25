@@ -44,7 +44,7 @@ module.exports = class Discord {
 					postData = this.post.type.image(data);
 					break;
 				case 'link':
-				case 'rich:video':
+				case 'hosted:video':
 					postData = this.post.type.link(data);
 					break;
 				case 'poll':
@@ -53,6 +53,7 @@ module.exports = class Discord {
 				default:
 					postData = this.post.type.post(data);
 			}
+			console.log('JSON', postData);
 			return postData;
 		},
 		type : {
@@ -63,7 +64,7 @@ module.exports = class Discord {
 				return {
 					"embeds": [{
 						"title" : htmlEntities.decode((data.link_flair_text ? '['+data.link_flair_text+'] ' : '')+(data.title || data.link_title)),
-						"url" : htmlEntities.decode(data.url || data.link_url),
+						"url": htmlEntities.decode('https://www.reddit.com'+data.permalink),// data.url || data.link_url),
 						"color"	: this.postFlairs[data.link_flair_css_class] || FlairColors.COLORS.WHITE,
 						"author": {
 							"name": htmlEntities.decode(data.author_flair_text ? '['+data.author_flair_text+'] ' : '')+"/u/"+data.author,
@@ -73,6 +74,9 @@ module.exports = class Discord {
 				};
 			},
 			post : (data) => {
+				if (data.url_overridden_by_dest) {
+					return this.post.type.link(data);
+				}
 				let postData = this.post.type.base(data);
 				postData.content = "A new Post has been made";
 				postData.embeds[0].description = (data.over_18 ? "NSFW\n\n" : '');
@@ -93,8 +97,19 @@ module.exports = class Discord {
 				if(!data.is_gallery){
 					postData.content = "A new Image has been posted";
 					images = data.preview.images.map((item) => {
+						let image_url;
+						switch(true){
+							case item.variants.gif:
+								image_url = item.variants.gif.source.url;
+								break;
+							case item.variants.mp4:
+								image_url = item.variants.mp4.source.url;
+								break;
+							default:
+								image_url = item.source.url;
+						}
 						return {
-							image: htmlEntities.decode(item.source.url)
+							image: htmlEntities.decode(image_url)
 						};
 					});
 				} else {
@@ -142,20 +157,20 @@ module.exports = class Discord {
 			},
 			link : (data) => {
 				let postData = this.post.type.base(data);
-				if(data.post_hint == 'rich:video'){
+				if(data.is_video){
 					postData.content = "A new Video has been posted by **"+htmlEntities.decode((data.author_flair_text ? '['+data.author_flair_text+'] ' : '')+"/u/"+data.author)+"**";
 					postData.content+= (data.over_18 ? "\nNSFW" : '');
 					postData.content+= "\n**"+(data.link_flair_text ? '['+data.link_flair_text+'] ' : '')
-											 +htmlEntities.decode(data.title || data.link_title)+"** - "+htmlEntities.decode(data.url || data.link_url),
-					postData.content+= "\n"+htmlEntities.decode(data.url);
+									+ htmlEntities.decode(data.title || data.link_title) + "** - " + htmlEntities.decode(data.url || data.link_url);
 					delete postData.embeds;
-				} else {
+				}
+				else {
 					postData.content = "A new Link has been posted";
 					postData.embeds[0].description = (data.over_18 ? "\nNSFW" : '');
-					postData.embeds[0].description+= "\n\n"+htmlEntities.decode(data.url);
-					postData.embeds[0].thumbnail = { 
-						"url": data.thumbnail
-					};
+					postData.embeds[0].description += "\n\n" + htmlEntities.decode(data.url);
+					//postData.embeds[0].thumbnail = { 
+					//	"url": data.thumbnail
+					//};
 				}
 				return postData;
 			},
