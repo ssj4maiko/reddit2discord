@@ -20,6 +20,7 @@ git clone https://github.com/ssj4maiko/reddit2discord
 cd reddit2discord
 npm install
 cp .env.example .env
+cp src/flair-colors.js.example src/flair-colors.js
 ```
 
 Fill in the `.env` file with the required configurations.
