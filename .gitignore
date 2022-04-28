@@ -18,3 +18,4 @@ node_modules/
 build/
 *.service
 src/flair-colors.js
+src/flair-colors.ts

@@ -53,7 +53,7 @@ sudo chmod +x build/index.js
 
 Now on the new `reddit2discord.service`, we fill in the necessary data.
 
-Replace `<BIN_NPM_PATH>` with the absolute path of your node. You can find it with `which npm`.
+Replace `<BIN_NODE_PATH>` with the absolute path of your node. You can find it with `which node`.
 
 Replace `<ABSOLUTE_PATH_TO_FOLDER>` with the absolute path of this project. You can find it with `pwd` when inside the project's folder.
 
@@ -67,7 +67,7 @@ If however it mentions a problem with the unit file, then you likely wrote somet
 
 Colors and messages are all in code, so if you want to change something, right now, you will have to change the code. If you don't mind the way messages are made, just changing the colors is easy.
 
-In `src/flair-colors.ts`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's done, and don't forget the commas <,>.
+In `src/flair-colors.ts`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's formatted, and don't forget the commas <,>.
 
 The array of colors is done with integer numbers instead of the usual Hexcode, or RGB values. I see no common sense in how that works right now, so to find new colors, well, good luck.
 

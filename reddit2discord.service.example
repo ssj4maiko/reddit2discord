@@ -2,7 +2,7 @@
 Description=Reddit2Discord
 
 [Service]
-ExecStart=<BIN_NPM_PATH> startBuild
+ExecStart=<BIN_NODE_PATH> build/index.js
 Restart=always
 User=nobody
 # Note Debian/Ubuntu uses 'nogroup', RHEL/Fedora uses 'nobody'

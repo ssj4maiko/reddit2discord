@@ -4,7 +4,8 @@
   "description": "A minibot to post new posts from a subreddit to discord, ran from a raspberry pi",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "startBuild": "tsc && node build/index.js",
+    "build": "tsc",
+    "startBuild": "node build/index.js",
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts"
   },
