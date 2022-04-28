@@ -1,10 +1,10 @@
 import { decode as htmlEntities_decode } from 'html-entities';
 import axios from 'axios';
-import {FlairColors, DEFAULT_POST_COLOR, DEFAULT_COMMENT_COLOR} from '../flair-colors.js';
+import { REDDIT_FLAIRS, DEFAULT_POST_COLOR, DEFAULT_COMMENT_COLOR} from '../flair-colors.js';
 import { comment, post } from '../interfaces';
 
 export default class Discord {
-	private postFlairs = FlairColors.FLAIRS;
+	private postFlairs = REDDIT_FLAIRS;
 	private webhook = {
 		post : null,
 		comment : null

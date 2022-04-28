@@ -1,6 +1,6 @@
 // https://gist.github.com/thomasbnt/b6f455e2c7d743b796917fa3c205f812#gistcomment-3656937 for colors
 
-exports.COLORS = {
+const DISCORD_COLORS = {
   DEFAULT: 0, // 	#000000
   AQUA: 1752220, // 	#1ABC9C
   DARK_AQUA: 1146986, // 	#11806A
@@ -34,21 +34,21 @@ exports.COLORS = {
 
 // Set CSS rules for the flairs
 
-exports.FLAIRS = {
-  "post-classname-a": exports.COLORS.BLUE,
-  "post-classname-b": exports.COLORS.RED,
-  "post-classname-c": exports.COLORS.WHITE,
-  "post-classname-d": exports.COLORS.AQUA,
-  "post-classname-e": exports.COLORS.GREEN,
-  "post-classname-f": exports.COLORS.GREY,
-  "post-classname-g": exports.COLORS.GOLD,
-  "post-classname-g": exports.COLORS.PURPLE,
+exports.REDDIT_FLAIRS = {
+  "post-classname-a": DISCORD_COLORS.BLUE,
+  "post-classname-b": DISCORD_COLORS.RED,
+  "post-classname-c": DISCORD_COLORS.WHITE,
+  "post-classname-d": DISCORD_COLORS.AQUA,
+  "post-classname-e": DISCORD_COLORS.GREEN,
+  "post-classname-f": DISCORD_COLORS.GREY,
+  "post-classname-g": DISCORD_COLORS.GOLD,
+  "post-classname-g": DISCORD_COLORS.PURPLE,
   
-  "user-classname-i": exports.COLORS.RED,
-  "user-classname-j": exports.COLORS.BLUE,
-  "user-classname-k": exports.COLORS.LIGHT_GREY,
-  "user-classname-l": exports.COLORS.DARK_PURPLE,
+  "user-classname-i": DISCORD_COLORS.RED,
+  "user-classname-j": DISCORD_COLORS.BLUE,
+  "user-classname-k": DISCORD_COLORS.LIGHT_GREY,
+  "user-classname-l": DISCORD_COLORS.DARK_PURPLE,
 };
 
-exports.DEFAULT_POST_COLOR = FlairColors.COLORS.WHITE
-exports.DEFAULT_COMMENT_COLOR = FlairColors.COLORS.ORANGE
+exports.DEFAULT_POST_COLOR = DISCORD_COLORS.WHITE
+exports.DEFAULT_COMMENT_COLOR = DISCORD_COLORS.ORANGE
