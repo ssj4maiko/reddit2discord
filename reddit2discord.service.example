@@ -2,7 +2,7 @@
 Description=Reddit2Discord
 
 [Service]
-ExecStart=<BIN_NPM_PATH> start
+ExecStart=<BIN_NPM_PATH> startBuild
 Restart=always
 User=nobody
 # Note Debian/Ubuntu uses 'nogroup', RHEL/Fedora uses 'nobody'

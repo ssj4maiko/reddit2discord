@@ -20,7 +20,7 @@ git clone https://github.com/ssj4maiko/reddit2discord
 cd reddit2discord
 npm install
 cp .env.example .env
-cp src/flair-colors.js.example src/flair-colors.js
+cp src/flair-colors.ts.example src/flair-colors.ts
 ```
 
 Fill in the `.env` file with the required configurations.
@@ -37,13 +37,18 @@ Give it a name, select the channel, save it, copy the URL and paste it here. The
 
 ## Running
 
-And it should be all. You can test it with `npm run dev` or `npm run start`.
+And it should be all. You can test it with `npm run dev` or `npm start`.
 
 Since you likely want to run it on the background, without an "always on terminal", I have added a `service.example` file.
 
 ```
 cp reddit2discord.service.example reddit2discord.service
-sudo chmod +x index.js
+```
+
+Another point to be taken here is that we may want to `build` the project, this way, the raspberry will have it easier for itself.
+```
+npx tsc
+sudo chmod +x build/index.js
 ```
 
 Now on the new `reddit2discord.service`, we fill in the necessary data.
@@ -62,13 +67,13 @@ If however it mentions a problem with the unit file, then you likely wrote somet
 
 Colors and messages are all in code, so if you want to change something, right now, you will have to change the code. If you don't mind the way messages are made, just changing the colors is easy.
 
-In `src/flair-colors.js`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's done, and don't forget the commas <,>.
+In `src/flair-colors.ts`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's done, and don't forget the commas <,>.
 
 The array of colors is done with integer numbers instead of the usual Hexcode, or RGB values. I see no common sense in how that works right now, so to find new colors, well, good luck.
 
 To make the `CSS` classes, when you are making new classes on the subreddit (You need to at least be a **mod**), fill the *CSS Class* input for both User and Post Flairs. Post Flairs are used in posts, User Flairs are used in comments.
 
-If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the `src/flair-colors.js` code too, just search for `DEFAULT_POST_COLOR` and `DEFAULT_COMMENT_COLOR`, and change for something else in the array of colors, or some random number.
+If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the `src/flair-colors.ts` code too, just search for `DEFAULT_POST_COLOR` and `DEFAULT_COMMENT_COLOR`, and change for something else in the array of colors, or some random number.
 
 ## Support
 

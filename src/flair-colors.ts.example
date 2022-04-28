@@ -34,7 +34,7 @@ const DISCORD_COLORS = {
 
 // Set CSS rules for the flairs
 
-exports.REDDIT_FLAIRS = {
+export const REDDIT_FLAIRS = {
   "post-classname-a": DISCORD_COLORS.BLUE,
   "post-classname-b": DISCORD_COLORS.RED,
   "post-classname-c": DISCORD_COLORS.WHITE,
@@ -50,5 +50,5 @@ exports.REDDIT_FLAIRS = {
   "user-classname-l": DISCORD_COLORS.DARK_PURPLE,
 };
 
-exports.DEFAULT_POST_COLOR = DISCORD_COLORS.WHITE
-exports.DEFAULT_COMMENT_COLOR = DISCORD_COLORS.ORANGE
+export const DEFAULT_POST_COLOR = DISCORD_COLORS.WHITE
+export const DEFAULT_COMMENT_COLOR = DISCORD_COLORS.ORANGE

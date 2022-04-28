@@ -43,7 +43,7 @@ export default class Watcher {
 			this.eventEmitter.emit('error', `HTTP Error Response: ${response.status} ${response.statusText}`)
 		} else {
 			let json = response.data as posts|comments;
-			console.log('CHECKING for new stuff',this.type);
+			//console.log('CHECKING for new stuff',this.type);
 
 			let data = json as posts
 			if (data.data.children) {
