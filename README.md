@@ -57,7 +57,7 @@ Replace `<BIN_NODE_PATH>` with the absolute path of your node. You can find it w
 
 Replace `<ABSOLUTE_PATH_TO_FOLDER>` with the absolute path of this project. You can find it with `pwd` when inside the project's folder.
 
-Now, you can do this: `systemctl enable ~/reddit2discord/reddit2discord.service`. This will create a symlink on `/etc/systemd/system`.
+Now, you can do this: `systemctl enable ~/reddit2discord/reddit2discord.service` (In case you installed on `~/reddit2discord/`, otherwise, change the route accordingly). This will create a symlink on `/etc/systemd/system`.
 
 Now you can run it with `systemctl start reddit2discord`, and check its status with `systemctl status reddit2discord`.
 
