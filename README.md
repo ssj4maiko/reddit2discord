@@ -47,7 +47,7 @@ sudo chmod +x index.js
 
 Now on the new `reddit2discord.service`, we fill in the necessary data.
 
-Replace `<BIN_NODE_PATH>` with the absolute path of your node. You can find it with `which node`.
+Replace `<BIN_NPM_PATH>` with the absolute path of your node. You can find it with `which npm`.
 
 Replace `<ABSOLUTE_PATH_TO_FOLDER>` with the absolute path of this project. You can find it with `pwd` when inside the project's folder.
 
@@ -61,13 +61,13 @@ If however it mentions a problem with the unit file, then you likely wrote somet
 
 Colors and messages are all in code, so if you want to change something, right now, you will have to change the code. If you don't mind the way messages are made, just changing the colors is easy.
 
-In `flair-colors.js`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's done, and don't forget the commas <,>.
+In `src/flair-colors.js`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's done, and don't forget the commas <,>.
 
 The array of colors is done with integer numbers instead of the usual Hexcode, or RGB values. I see no common sense in how that works right now, so to find new colors, well, good luck.
 
 To make the `CSS` classes, when you are making new classes on the subreddit (You need to at least be a **mod**), fill the *CSS Class* input for both User and Post Flairs. Post Flairs are used in posts, User Flairs are used in comments.
 
-If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the `discord.js` code too, just search for WHITE and ORANGE, and change for something else in the array of colors, or some random number.
+If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the `src/flair-colors.js` code too, just search for `DEFAULT_POST_COLOR` and `DEFAULT_COMMENT_COLOR`, and change for something else in the array of colors, or some random number.
 
 ## Support
 
