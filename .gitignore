@@ -15,5 +15,6 @@ node_modules/
 .env.test
 .env.production
 
+build/
 *.service
-flair-colors.js
+src/flair-colors.js
