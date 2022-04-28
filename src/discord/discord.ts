@@ -1,6 +1,6 @@
 import { decode as htmlEntities_decode } from 'html-entities';
 import axios from 'axios';
-import { REDDIT_FLAIRS, DEFAULT_POST_COLOR, DEFAULT_COMMENT_COLOR} from '../flair-colors.js';
+import { REDDIT_FLAIRS, DEFAULT_POST_COLOR, DEFAULT_COMMENT_COLOR} from '../flair-colors';
 import { comment, post } from '../interfaces';
 
 export default class Discord {
