@@ -34,7 +34,7 @@ export default class Watcher {
 	
 	private lastCreated: number;
 	private async check() {
-		console.log('checking again for ' + this.typeName +'s');
+		//console.log('checking again for ' + this.typeName +'S');
 		let response = await axios.get(this.URL, {
 			headers: this.headers
 		}),
@@ -68,7 +68,6 @@ export default class Watcher {
 			}
 		}
 		setTimeout(() => {
-			console.log('Timeout, check reddit again for '+(this.type));
 			this.check();
 		}, this.time);
 	};
@@ -86,7 +85,7 @@ export default class Watcher {
 			this.started = true;
 
 			setTimeout(() => {
-				console.log('TIMEOUT CHECK AGAIN ' + (this.type));
+				//console.log('TIMEOUT CHECK AGAIN ' + (this.type));
 				this.check();
 			}, this.time);
 		}
