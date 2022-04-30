@@ -254,13 +254,20 @@ export default class Discord {
 					setTimeout(() => {
 						this.postDiscord();
 					}, 3000);
-				}, (badResponse) => {
-					console.error(badResponse.code, badResponse.response.status, badResponse.response.statusText);
-					console.log('retrying in '+(5+this.errorTimer/1000)+' sec on Discord');
-					if(this.errorTimer > 3000){
+				})
+				.catch((badResponse) => {
+					if (badResponse.response){
+						console.error(badResponse.code, badResponse.response.status, badResponse.response.statusText);
+					} else if (badResponse.request) {
+						console.log('Error Response', badResponse.request);
+					} else {
+						console.log('Error Generic', badResponse.message);
+					}
+					console.log('retrying in ' + (5 + this.errorTimer / 1000) + ' sec on Discord');
+					if (this.errorTimer > 3000) {
 						this.queue.shift();
 						this.errorTimer = 0;
-						this.sendDebug('> DISCORD','This post could not be sent for some reason:', postData);
+						this.sendDebug('> DISCORD', 'This post could not be sent for some reason:', postData);
 					}
 					setTimeout(() => {
 						this.errorTimer += 1000;

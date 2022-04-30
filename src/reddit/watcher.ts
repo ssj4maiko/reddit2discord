@@ -60,23 +60,25 @@ export default class Watcher {
 			this.eventEmitter.emit('error', `HTTP Error Response: ${response.status} ${response.statusText}`)
 		} else {
 			let json = response.data as posts|comments;
-			if (json.data){
-				if (json.data.children) {
-					lastIndex = json.data.children.length-1;
-					for (let i = 0; i < json.data.children.length; ++i) {
-						//console.log(' - Testing comment lastID '+i+': ' + this.lastCreated + ' - ', json.data.children[i].data.created)
-						if (this.lastCreated >= json.data.children[i].data.created) {
-							lastIndex = i;
-							break;
+			try {
+				if (json.data){
+					if (json.data.children) {
+						lastIndex = json.data.children.length-1;
+						for (let i = 0; i < json.data.children.length; ++i) {
+							//console.log(' - Testing comment lastID '+i+': ' + this.lastCreated + ' - ', json.data.children[i].data.created)
+							if (this.lastCreated >= json.data.children[i].data.created) {
+								lastIndex = i;
+								break;
+							}
+						}
+						this.lastCreated = json.data.children[0].data.created;
+						for (let i = (lastIndex - 1); i >= 0; --i) {
+							this.eventEmitter.emit(this.typeName.toLocaleLowerCase(), json.data.children[i].data);
 						}
 					}
-					this.lastCreated = json.data.children[0].data.created;
-					for (let i = (lastIndex - 1); i >= 0; --i) {
-						this.eventEmitter.emit(this.typeName.toLocaleLowerCase(), json.data.children[i].data);
-					}
 				}
-			} else {
-				this.eventEmitter.emit('error', 'Strange Error on Response',response);
+			} catch (er) {
+				this.eventEmitter.emit('error', 'Watcher check: '+er.message, response);
 			}
 		}
 		setTimeout(() => {
