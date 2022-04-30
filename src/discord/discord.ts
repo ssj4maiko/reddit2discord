@@ -207,8 +207,7 @@ export default class Discord {
 			let base = {
 				"content": "A new comment was made.",
 				"embeds": [{
-					"title" : '- '+(!!data.author_flair_text ? '['+htmlEntities_decode(data.author_flair_text)+'] ' : '')
-								+( !!data.link_title ? htmlEntities_decode(data.link_title) : ''),
+					"title" : '- '+( !!data.link_title ? htmlEntities_decode(data.link_title) : ''),
 					"url" : htmlEntities_decode(data.link_permalink+data.id),
 					"color": this.postFlairs[data.author_flair_css_class] || DEFAULT_COMMENT_COLOR,
 					"author": {
