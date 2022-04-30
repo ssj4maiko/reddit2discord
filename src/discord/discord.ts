@@ -215,7 +215,7 @@ export default class Discord {
 						"name": "/u/"+data.author+' '+htmlEntities_decode(!!data.author_flair_text ? '['+data.author_flair_text+'] ' : ''),
 						//"icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
 					},
-					"description" :null
+					"description" : null
 				}]
 			};
 			if(process.env.SHOW_COMMENTS == 'true'){
@@ -235,14 +235,10 @@ export default class Discord {
 			this.postDiscord();
 		}
 	}
+	private errorTimer:number = 0;
 	private postDiscord = async () => {
 		this.running = true;
 		if(this.queue.length > 0){
-			//console.log('-----------');
-			//console.log('TRYING NOW');
-			//console.log(this.queue[0].url);
-			//console.log(this.queue[0].postData);
-			//console.log('-----------');
 			let postData = this.queue[0].postData,
 				url = this.queue[0].url,
 				clientServerOptions = {
@@ -253,22 +249,37 @@ export default class Discord {
 			axios.post(url, postData, clientServerOptions)
 				.then((goodResponse) => {
 					this.queue.shift();
+					this.errorTimer = 0;
 					console.log('Posted, ',this.queue.length,'remaining');
 					setTimeout(() => {
 						this.postDiscord();
 					}, 3000);
 				}, (badResponse) => {
 					console.error(badResponse.code, badResponse.response.status, badResponse.response.statusText);
-					console.log('retrying in 5 sec');
+					console.log('retrying in '+(5+this.errorTimer/1000)+' sec on Discord');
+					if(this.errorTimer > 3000){
+						this.queue.shift();
+						this.errorTimer = 0;
+						this.sendDebug('> DISCORD','This post could not be sent for some reason:', postData);
+					}
 					setTimeout(() => {
+						this.errorTimer += 1000;
 						console.log('retrying');
 						this.postDiscord();
-					}, 3000);
+					}, 5000 + this.errorTimer);
 				});
 		} else {
 			this.running = false;
 			console.log('Queue ended');
 		}
+	}
+	public sendDebug = async (type:string, message:string, json?:object) =>{
+		if (process.env.WEBHOOK_DEBUG) {
+			this.send({
+				"content": type + ' - ' +message+ (json? '```js\n'+JSON.stringify(json)+'```' : '')
+			}, process.env.WEBHOOK_DEBUG);
+		}
+
 	}
 }
 

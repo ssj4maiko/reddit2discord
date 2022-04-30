@@ -43,12 +43,14 @@ export default class Watcher {
 				// that falls out of the range of 2xx
 				return error.response;
 			} else if (error.request) {
+				this.eventEmitter.emit('> WATCHER ' + this.typeName, 'Error Request', error.request);
 				// The request was made but no response was received
 				// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
 				// http.ClientRequest in node.js
 				return error.request;
 			} else {
 				// Something happened in setting up the request that triggered an Error
+				this.eventEmitter.emit('error', 'Response error', response);
 				console.log('Error', error.message);
 			}
 			console.log(error.config);
@@ -58,28 +60,23 @@ export default class Watcher {
 			this.eventEmitter.emit('error', `HTTP Error Response: ${response.status} ${response.statusText}`)
 		} else {
 			let json = response.data as posts|comments;
-			//console.log('CHECKING for new stuff',this.type);
-
-			let data = json as posts
-			if (data.data.children) {
-				lastIndex = data.data.children.length-1;
-				for (let i = 0; i < data.data.children.length; ++i) {
-					//console.log(' - Testing comment lastID '+i+': ' + this.lastCreated + ' - ', data.data.children[i].data.created)
-					if (this.lastCreated >= data.data.children[i].data.created) {
-						lastIndex = i;
-						break;
+			if (json.data){
+				if (json.data.children) {
+					lastIndex = json.data.children.length-1;
+					for (let i = 0; i < json.data.children.length; ++i) {
+						//console.log(' - Testing comment lastID '+i+': ' + this.lastCreated + ' - ', json.data.children[i].data.created)
+						if (this.lastCreated >= json.data.children[i].data.created) {
+							lastIndex = i;
+							break;
+						}
+					}
+					this.lastCreated = json.data.children[0].data.created;
+					for (let i = (lastIndex - 1); i >= 0; --i) {
+						this.eventEmitter.emit(this.typeName.toLocaleLowerCase(), json.data.children[i].data);
 					}
 				}
-				this.lastCreated = data.data.children[0].data.created;
-				if (this.type === 1) {
-					for (let i = (lastIndex - 1); i >= 0; --i) {
-						this.eventEmitter.emit('post', data.data.children[i].data);
-					}
-				} else {
-					for (let i = (lastIndex - 1); i >= 0; --i) {
-						this.eventEmitter.emit('comment', data.data.children[i].data);
-					}
-				}
+			} else {
+				this.eventEmitter.emit('error', 'Strange Error on Response',response);
 			}
 		}
 		setTimeout(() => {
@@ -117,6 +114,6 @@ export default class Watcher {
 	}
 	private time: number = 60;
 	public setTime(seg:number){
-		this.time = seg*1000;
+		this.time = Math.ceil(seg*1000);
 	}
 }

@@ -34,8 +34,8 @@ let start = async () => {
 					console.log("new comment");
 					discord.trigger(discord.COMMENT, comment);
 				})
-				.on('error', function(er:string) {
-					console.error(er);
+				.on('error', function(er:string, error?:object) {
+					discord.sendDebug("COMMENT",er,error);
 					//process.exit()
 				});
 	}
@@ -50,13 +50,14 @@ let start = async () => {
 					console.log("new post");
 					discord.trigger(discord.POST, post);
 				})
-				.on('error', function (er:string) {
-					console.error(er);
+				.on('error', function (er: string, error?: object) {
+					discord.sendDebug("POST", er, error);
 					//process.exit()
 				});
 	}
+	discord.sendDebug("> BOOT", "Reddit2Discord BOT is starting");
 	while(true){
-		await sleep(10000);
+		await sleep(10000000);
 	}
 };
 start();
