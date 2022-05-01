@@ -78,7 +78,8 @@ export default class Watcher {
 					}
 				}
 			} catch (er) {
-				this.eventEmitter.emit('error', 'Watcher check: '+er.message, response);
+				this.eventEmitter.emit('error', 'Watcher check: '+er.message);
+				console.error('RESPONSE JSON.DATA', response);
 			}
 		}
 		setTimeout(() => {
