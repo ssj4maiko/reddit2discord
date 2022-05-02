@@ -59,27 +59,32 @@ export default class Watcher {
 		if (response.status < 200 || response.status >= 300) {
 			this.eventEmitter.emit('error', `HTTP Error Response: ${response.status} ${response.statusText}`)
 		} else {
-			let json = response.data as posts|comments;
-			try {
-				if (json.data){
-					if (json.data.children) {
-						lastIndex = json.data.children.length-1;
-						for (let i = 0; i < json.data.children.length; ++i) {
-							//console.log(' - Testing comment lastID '+i+': ' + this.lastCreated + ' - ', json.data.children[i].data.created)
-							if (this.lastCreated >= json.data.children[i].data.created) {
-								lastIndex = i;
-								break;
+			if(response.data){
+				let json = response.data as posts|comments;
+				try {
+					if (json.data){
+						if (json.data.children) {
+							lastIndex = json.data.children.length-1;
+							for (let i = 0; i < json.data.children.length; ++i) {
+								//console.log(' - Testing comment lastID '+i+': ' + this.lastCreated + ' - ', json.data.children[i].data.created)
+								if (this.lastCreated >= json.data.children[i].data.created) {
+									lastIndex = i;
+									break;
+								}
+							}
+							this.lastCreated = json.data.children[0].data.created;
+							for (let i = (lastIndex - 1); i >= 0; --i) {
+								this.eventEmitter.emit(this.typeName.toLocaleLowerCase(), json.data.children[i].data);
 							}
 						}
-						this.lastCreated = json.data.children[0].data.created;
-						for (let i = (lastIndex - 1); i >= 0; --i) {
-							this.eventEmitter.emit(this.typeName.toLocaleLowerCase(), json.data.children[i].data);
-						}
 					}
+				} catch (er) {
+					this.eventEmitter.emit('error', 'Watcher check: '+er.message);
+					console.error('RESPONSE JSON.DATA', response);
 				}
-			} catch (er) {
-				this.eventEmitter.emit('error', 'Watcher check: '+er.message);
-				console.error('RESPONSE JSON.DATA', response);
+			} else {
+				console.log(response.error);
+				this.eventEmitter.emit('error', 'Strange no response error: Status: ' + response.status);
 			}
 		}
 		setTimeout(() => {
