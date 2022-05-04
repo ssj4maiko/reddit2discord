@@ -53,7 +53,7 @@ export default class Watcher {
 				this.eventEmitter.emit('error', 'Response error', response);
 				console.log('Error', error.message);
 			}
-			console.log(error.config);
+			//console.log(error.config);
 		}),
 			lastIndex:number = 9;
 		if (response.status < 200 || response.status >= 300) {
@@ -83,8 +83,9 @@ export default class Watcher {
 					console.error('RESPONSE JSON.DATA', response);
 				}
 			} else {
-				console.log(response.error);
-				this.eventEmitter.emit('error', 'Strange no response error: Status: ' + response.status);
+				// Acutally Request
+				//console.log(response.error);
+				this.eventEmitter.emit('error', 'Strange no response error: ' + response.errno + ' - ' + response.code);
 			}
 		}
 		setTimeout(() => {
