@@ -282,7 +282,7 @@ export default class Discord {
 	public sendDebug = async (type:string, message:string, json?:object) =>{
 		if (process.env.WEBHOOK_DEBUG) {
 			this.send({
-				"content": type + ' - ' +message+ (json? '```js\n'+JSON.stringify(json)+'```' : '')
+				"content": type + ' - ' +message+ (json? '\n```js\n'+JSON.stringify(json)+'```' : '')
 			}, process.env.WEBHOOK_DEBUG);
 		}
 
