@@ -217,6 +217,9 @@ export default class Discord {
 					"description" : null
 				}]
 			};
+			if(base.embeds[0].title.length > 256){
+				base.embeds[0].title = base.embeds[0].title.substr(0,253)+'...';
+			}
 			if(process.env.SHOW_COMMENTS == 'true'){
 				base.embeds[0].description = htmlEntities_decode(data.body);
 			}
