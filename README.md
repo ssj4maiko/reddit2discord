@@ -2,7 +2,7 @@
 
 A simple NodeJS watcher to check on an specific subreddit, and notify a discord Webhook through a post. Since it needs to constantly be running, it was made with the intent of running it on a Raspberry Pi 3 I have always on.
 
-Possibly because of *Reddit-Snooper* ( https://github.com/JuicyPasta/reddit-snooper ), it seems that Reddit still counts each access as a unique visitant to a subreddit (Even if same IP), so the subreddit that one I made all this for went from less than 100 visitants to ~2K, ironically, more than the number of subscribers. ¯\\\_(ツ)\_/¯
+Do be aware that the number of visitors on the subreddit will increase a bit depending on the amount of checks you go through per minute, 1 per minute has given me ~35 visitors, so not a big deal in large communities, but a bigger deal in small ones.
 
 ## Install
 
