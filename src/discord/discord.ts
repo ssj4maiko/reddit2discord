@@ -3,6 +3,10 @@ import axios from 'axios';
 import { REDDIT_FLAIRS, DEFAULT_POST_COLOR, DEFAULT_COMMENT_COLOR} from '../flair-colors';
 import { comment, post } from '../interfaces';
 
+function truncate(str, n){
+	return (str.length > n) ? str.slice(0, n-1) + '…' : str;
+};
+
 export default class Discord {
 	private postFlairs = REDDIT_FLAIRS;
 	private webhook = {
@@ -65,7 +69,7 @@ export default class Discord {
 				return {
 					"content": "",
 					"embeds": [{
-						"title" : htmlEntities_decode((data.link_flair_text ? '['+data.link_flair_text+'] ' : '')+(data.title)),
+						"title" : truncate(htmlEntities_decode((data.link_flair_text ? '['+data.link_flair_text+'] ' : '')+(data.title)), 256),
 						"url": htmlEntities_decode('https://www.reddit.com'+data.permalink),// data.url || data.link_url),
 						"color": this.postFlairs[data.link_flair_css_class] || DEFAULT_POST_COLOR,
 						"author": {
@@ -207,7 +211,7 @@ export default class Discord {
 			let base = {
 				"content": "A new comment was made.",
 				"embeds": [{
-					"title" : '- '+( !!data.link_title ? htmlEntities_decode(data.link_title) : ''),
+					"title" : truncate('- '+( !!data.link_title ? htmlEntities_decode(data.link_title) : ''), 256),
 					"url" : htmlEntities_decode(data.link_permalink+data.id),
 					"color": this.postFlairs[data.author_flair_css_class] || DEFAULT_COMMENT_COLOR,
 					"author": {
@@ -217,9 +221,6 @@ export default class Discord {
 					"description" : null
 				}]
 			};
-			if(base.embeds[0].title.length > 256){
-				base.embeds[0].title = base.embeds[0].title.substr(0,253)+'...';
-			}
 			if(process.env.SHOW_COMMENTS == 'true'){
 				base.embeds[0].description = htmlEntities_decode(data.body);
 			}
