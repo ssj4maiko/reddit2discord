@@ -67,13 +67,18 @@ If however it mentions a problem with the unit file, then you likely wrote somet
 
 Colors and messages are all in code, so if you want to change something, right now, you will have to change the code. If you don't mind the way messages are made, just changing the colors is easy.
 
-In `src/flair-colors.ts`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's formatted, and don't forget the commas <,>.
+In `src/flair-colors.ts`, there are 2 arrays, one of flairs, and another of colors. If you don't know programming, just keep in mind how it's formatted, and don't forget the commas `,`.
 
-The array of colors is done with integer numbers instead of the usual Hexcode, or RGB values. I see no common sense in how that works right now, so to find new colors, well, good luck.
+The array of colors is done with integer numbers instead of the usual Hexcode, or RGB values. I see no common sense in how that works right now, so to find new colors, well, good luck, the first line is a comment with a link for reference.
 
 To make the `CSS` classes, when you are making new classes on the subreddit (You need to at least be a **mod**), fill the *CSS Class* input for both User and Post Flairs. Post Flairs are used in posts, User Flairs are used in comments.
 
-If the class is not found, it will do White for Posts, and Orange for comments, but you can change that in the `src/flair-colors.ts` code too, just search for `DEFAULT_POST_COLOR` and `DEFAULT_COMMENT_COLOR`, and change for something else in the array of colors, or some random number.
+![/readme-post-flair.png for an example of custom CSS for Post Flair](/readme-post-flair.png "Example of custom CSS for Post Flair")
+![/readme-user-flair.png for an example of custom CSS for User Flair](/readme-user-flair.png "Example of custom CSS for User Flair")
+
+You can use any name, the only reason I started mine with `user-flair-` and `post-flair-` was merely to make it easier to not mix up in the future, you can set it up for something like `class-a`, `something-1` or `apache-helicopter`.
+
+If the class is not found, it will use `DEFAULT_POST_COLOR` for Posts, and `DEFAULT_COMMENT_COLOR` for comments, but you can change that in the `src/flair-colors.ts` code too, just search for them, and change for something else in the array of colors, or some random number.
 
 ## Support
 

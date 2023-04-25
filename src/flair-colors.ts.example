@@ -42,7 +42,7 @@ export const REDDIT_FLAIRS = {
   "post-classname-e": DISCORD_COLORS.GREEN,
   "post-classname-f": DISCORD_COLORS.GREY,
   "post-classname-g": DISCORD_COLORS.GOLD,
-  "post-classname-g": DISCORD_COLORS.PURPLE,
+  "post-classname-h": DISCORD_COLORS.PURPLE,
   
   "user-classname-i": DISCORD_COLORS.RED,
   "user-classname-j": DISCORD_COLORS.BLUE,
