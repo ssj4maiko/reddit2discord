@@ -65,14 +65,21 @@ export default class Watcher {
 					if (json.data){
 						if (json.data.children) {
 							lastIndex = json.data.children.length-1;
+							let broken: boolean = false;
 							for (let i = 0; i < json.data.children.length; ++i) {
 								//console.log(' - Testing comment lastID '+i+': ' + this.lastCreated + ' - ', json.data.children[i].data.created)
 								if (this.lastCreated >= json.data.children[i].data.created) {
 									lastIndex = i;
+									broken = true;
 									break;
 								}
 							}
-							this.lastCreated = json.data.children[0].data.created;
+							if(broken) {
+								console.warn('Weird result that could be setting last date as null: ', json.data.children);
+							}
+							if(json.data.children[0] && json.data.children[0].data && json.data.children[0].data.created){
+								this.lastCreated = json.data.children[0].data.created;
+							}
 							for (let i = (lastIndex - 1); i >= 0; --i) {
 								this.eventEmitter.emit(this.typeName.toLocaleLowerCase(), json.data.children[i].data);
 							}

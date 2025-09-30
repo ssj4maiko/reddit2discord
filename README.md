@@ -28,7 +28,7 @@ Fill in the `.env` file with the required configurations.
 ```
 SUBREDDIT=<subreddit's name, for example, "test" for /r/test>
 WEBHOOK_POST=<The Webhook URL you made on the channel aimed to receive the new posts>
-WEBHOOK_COMMENT=<The Webhook URL you made on the channel aimed to receive the new comments>
+WEBHOOK_COMMENT=<The Webhook URL you made on the channel aimed to receive the new comments. (Can be the same as the one for posts)>
 ```
 
 To create an Webhook, got to `Server Settings > Integrations > Webhooks > New Webhooks`.
