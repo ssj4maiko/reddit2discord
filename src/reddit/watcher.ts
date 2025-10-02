@@ -51,7 +51,7 @@ export default class Watcher {
 			} else {
 				// Something happened in setting up the request that triggered an Error
 				this.eventEmitter.emit('error', 'Response error', response);
-				console.log('Error', error.message);
+				console.log('['+this.typeName+'] Error', error.message);
 			}
 			//console.log(error.config);
 		}),
@@ -74,20 +74,26 @@ export default class Watcher {
 									break;
 								}
 							}
-							if(broken) {
-								console.warn('Weird result that could be setting last date as null: ', json.data.children);
+							if(!broken) {
+								console.log(`[`+this.typeName+`] Weird result that could be setting last date as null: `);
+								console.log(`[`+this.typeName+`] Last Created Date`, this.lastCreated);
+								console.log(`[`+this.typeName+`] Children:`, json.data.children);
 							}
 							if(json.data.children[0] && json.data.children[0].data && json.data.children[0].data.created){
 								this.lastCreated = json.data.children[0].data.created;
 							}
-							for (let i = (lastIndex - 1); i >= 0; --i) {
-								this.eventEmitter.emit(this.typeName.toLocaleLowerCase(), json.data.children[i].data);
+							if ( lastIndex == json.data.children.length-1) {
+								console.log(`[`+this.typeName+`] Last Created Updated`);
+							} else {
+								for (let i = (lastIndex - 1); i >= 0; --i) {
+									this.eventEmitter.emit(this.typeName.toLocaleLowerCase(), json.data.children[i].data);
+								}
 							}
 						}
 					}
 				} catch (er) {
 					this.eventEmitter.emit('error', 'Watcher check: '+er.message);
-					console.error('RESPONSE JSON.DATA', response);
+					console.error('['+this.typeName+'] RESPONSE JSON.DATA', response);
 				}
 			} else {
 				// Acutally Request
@@ -101,7 +107,7 @@ export default class Watcher {
 	};
 	private started: boolean = false;
 	private async start() {
-		console.log('STARTING WATCHER '+ this.typeName);
+		console.log('['+this.typeName+'] STARTING WATCHER');
 		if (!this.started){
 			let response = await axios.get(this.URL, {
 				headers: this.headers
